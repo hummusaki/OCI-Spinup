@@ -1,6 +1,7 @@
 import requirements
 import os
 import time
+import create_server
 
 # check for OCI CLI installation
 requirements.check_oci_cli()
@@ -17,6 +18,8 @@ def main():
     time.sleep(5)
     os.system("oci os ns get")
 
+    # invoke the API to create the instance
+    create_server.create_instance()
 
 
 if __name__ == "__main__":
