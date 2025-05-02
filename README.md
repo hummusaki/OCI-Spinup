@@ -19,16 +19,16 @@ Once the OCI CLI is installed, it will then ask for a location for the Setup fil
 
 
 ## OCIDs and API Signing Key
-### **OCIDs**
+### OCIDs
 Once you're on your dashboard, click on your user icon in the top right corner, then "User Settings".
 Then, under User Information you will find your OCID, which you will enter as the User OCID.
 
 For the Tenancy OCID, click on your user icon again, then click on "Tenancy: [Your Username]"; under Tenancy Information you will find your Tenancy OCID, copy it and enter it as the Tenancy OCID.
-### **Region**
+### Region
 It will then ask for a region for the server; if you're on the West Coast (near the south) like I am, enter 71 for US-San Jose.
 Otherwise find the region that will work best for you. It will start with Continent/Country -> City
 
-### **API Keys**
+### API Keys
 It will ask you if you want to generate an RSA key pair, select `y`
 
 `Enter` the questions as they pop up to use the default values, until you reach the one where it asks for a passphrase:
