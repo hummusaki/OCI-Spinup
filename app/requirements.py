@@ -4,13 +4,15 @@ import os
 def check_oci_cli():
     if shutil.which("oci"):
         print("OCI is installed")
+        return True
     else:
         print("OCI is not installed")
-        print("Would you like to install it now? Y/n")
-        user_input = input().lower()
-        if user_input == "y":
-            os.system("Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.py' -OutFile 'install.py'")
-            os.system("python install.py")
-            print("OCI has been installed.")
-        else:
-            print("OCI installation skipped.")
+        choice = input("Install now? [y/n]: ").strip().lower() or "y"
+        if choice = "y":
+            os.system("curl -L https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.py -o install.py")
+            code = os.system(f"{sys.executable} install.py")
+            if code = 0 and shutil.which("oci"):
+                print("OCI CLI installed.")
+                return True
+        print("OCI CLI Unavailable. Exiting.")
+        return False
