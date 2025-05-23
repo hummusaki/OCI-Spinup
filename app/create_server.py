@@ -9,11 +9,15 @@ to run a Docker-based Minecraft server via the Python SDK.
 import base64
 import json
 import textwrap
+import time
+import urllib3
+
+from urllib3.exceptions import ProtocolError
 
 import oci
 from oci.config import from_file
 from oci.core import ComputeClient, VirtualNetworkClient
-from oci.exceptions import ServiceError
+from oci.exceptions import ServiceError, RequestException
 from oci.core.models import (
     CreateVnicDetails,
     InstanceSourceViaImageDetails,
@@ -153,7 +157,8 @@ def launch_instance(
     memory_in_gbs=4,
     display_name="MC-Server",
     variant="VANILLA",
-    docker_image="itzg/minecraft-server"
+    docker_image="itzg/minecraft-server",
+    max_retries=25
 ):
     """
     Wrapper to launch a VM.Standard.A1.Flex instance running Docker Minecraft.
@@ -198,14 +203,28 @@ runcmd:
         if not hasattr(details, priv):
             setattr(details, priv, None)
 
-    print("# REQUEST PAYLOAD")
-    print(json.dumps(oci.util.to_dict(details), indent=2))
-    print("# END PAYLOAD")
-
-    # Launch the instance
-    return compute_client.launch_instance(
-        launch_instance_details = details
-    )
+    # Try to launch the instance
+    attempt = 1
+    while max_retries == -1 or attempt < max_retries:
+        try:
+            if attempt > 1:
+                print(f"Attempt {attempt}: ")
+            response = compute_client.launch_instance(
+                launch_instance_details=details
+            )
+            print("Creation successful!")
+            return response
+        except ServiceError as e:
+            if e.status == 500 and "Out of host capacity" in str(e.message):
+                print(f"Oracle at capacity. Trying again in 30s...")
+            else:
+                raise
+        except (RequestException, ProtocolError, urllib3.exceptions.NewConnectionError, urllib3.exceptions.MaxRetryError) as neterr:
+            print(f"Network hiccup ({neterr.__class__.__name__}). "
+                  "Retrying in 30 s…")
+        attempt+=1
+        time.sleep(30)
+    raise Exception("Exceeded maximum retries. Unable to launch instance.")
 
 # ------------------------------
 # Main execution
@@ -240,10 +259,11 @@ def main():
     # 3) Names / image / AD
     vcn_name  = input("VCN name (MinecraftVCN): ") or "MinecraftVCN"
     inst_name = input("Instance name (MC-Server): ") or "MC-Server"
-    img_id     = input("Image OCID (Oracle Linux 8): ") or DEFAULT_IMAGE_ID
+    img_id     = input("Image OCID (Oracle Linux 9): ") or DEFAULT_IMAGE_ID
 
     ad = identity_client.list_availability_domains(TENANCY_OCID).data[0].name
-    print(ad)
+
+    max_retries = input("If the server is full, retry amount [-1 for infinite, default 20]: ") or 20
 
     # 4) Network setup
     print("Creating or retrieving VCN…")
