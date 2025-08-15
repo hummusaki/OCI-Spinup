@@ -175,8 +175,8 @@ runcmd:
   - docker run -d -p 25565:25565 --name mc -e EULA=TRUE -e TYPE={variant} {docker_image}
 """
     user_data = textwrap.dedent(raw).lstrip("\n")
-    # OCI SDK will do the Base64 for us if you pass the raw string,
-    # but if you want to pre-encode, you can:
+    # OCI SDK will do the Base64 if you pass the raw string,
+    # but to pre-encode, you can:
     b64_ud = base64.b64encode(user_data.encode()).decode()
 
     # Construct LaunchInstanceDetails
