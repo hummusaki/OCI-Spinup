@@ -4,28 +4,21 @@
 Automate the creation of Oracle Free-Tier instances for their cloud computing platform. Particularly useful if you want to create free and easy Minecraft servers.
 
 # Installation
-## Requirements
-This requires Python 3.12 or higher.
+**This requires Python 3.12 or higher**
 
-You will also need OCI CLI, which can be found here for Windows: https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm#InstallingCLI__windows
+You will also need [OCI CLI](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm#InstallingCLI) and a free [Oracle account](https://www.oracle.com/cloud/sign-in.html?redirect_uri=https%3A%2F%2Fcloud.oracle.com%2F).
 
-Or here for any other supported OS: https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm#InstallingCLI
-
-Finally, you will need a free Oracle account.
-Create it here: https://www.oracle.com/cloud/sign-in.html?redirect_uri=https%3A%2F%2Fcloud.oracle.com%2F
-
-## Oracle Setup
-Once the OCI CLI is installed, it will then ask for a location for the Setup file, then an OCID, API Signing Key and a Tenancy OCID.
-
-
-## OCIDs and API Signing Key
+## OCIDs, Regions and API Signing Key
+You'll need your OCIDs, your region and your API Keys to continue:
 ### OCIDs
-Once you're on your dashboard, click on your user icon in the top right corner, then "User Settings".
-Then, under User Information you will find your OCID, which you will enter as the User OCID.
-
-For the Tenancy OCID, click on your user icon again, then click on "Tenancy: [Your Username]"; under Tenancy Information you will find your Tenancy OCID, copy it and enter it as the Tenancy OCID.
+#### User OCID
+Once you're on your dashboard, click on your user icon in the top right corner, then "User Settings".<br>
+Then, under User Information you will find your OCID, this you will be the **User OCID**.
+#### Tenancy OCID
+For the Tenancy OCID, click on your user icon again, then click on "Tenancy: [Your Username]".<br>
+Under Tenancy Information you will find your **Tenancy OCID**.
 ### Region
-It will then ask for a region for the server; if you're on the West Coast (near the south) like I am, enter 71 for US-San Jose.
+As an example, if you're in Southern California, enter **71** for US-San Jose.
 Otherwise find the region that will work best for you. It will start with Continent/Country -> City
 
 ### API Keys
