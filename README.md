@@ -6,7 +6,7 @@ Automate the creation of Oracle Free-Tier instances for their cloud computing pl
 # Installation
 **This requires Python 3.12 or higher**
 
-You will also need [OCI CLI](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm#InstallingCLI) and a free [Oracle account](https://www.oracle.com/cloud/sign-in.html?redirect_uri=https%3A%2F%2Fcloud.oracle.com%2F).
+You will also need [OCI CLI](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm#InstallingCLI) and a free [Oracle account](https://www.oracle.com/cloud/sign-in.html?redirect_uri=https%3A%2F%2Fcloud.oracle.com%2F) with a connected credit card.
 
 ## OCIDs, Regions and API Signing Key
 You'll need your API Keys, OCIDs, and your Region to continue:
