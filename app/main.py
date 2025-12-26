@@ -22,7 +22,7 @@ def setup():
 
 def main():
     logging.basicConfig(level=logging.INFO)
-    print("Welcome to the Oracle Compute Instance Manager!\n")
+    print("Welcome to the Oracle Compute Instance manager!\n")
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--skip-config", action="store_true",
