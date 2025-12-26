@@ -1,7 +1,13 @@
-
-# Overview
-
+<p align="center">
+  <a href="https://gabmort.me/">
+    <img src="https://gabmort.me/assets/m2.png" width="75"/>
+  </a>
+</p>
+<h1 align="center">OCI-Spinup</h1>
+<h3 align="center">Oracle Instance Automation</h3>
 Automate the creation of Oracle Free-Tier instances for their cloud computing platform. Particularly useful if you want to create free and easy Minecraft servers.
+<h2 align="center">WIP</h2>
+This project is a work-in-progress! Currently OCI isn't able to resolve an instance with the given parameters in a reasonable amount of tries, but YMMV.
 
 # Installation
 **This requires Python 3.12 or higher**
