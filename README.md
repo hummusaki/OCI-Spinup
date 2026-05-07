@@ -6,8 +6,22 @@
 <h1 align="center">OCI-Spinup</h1>
 <h3 align="center">Oracle Instance Automation</h3>
 Automate the creation of Oracle Free-Tier instances for their cloud computing platform. Particularly useful if you want to create free and easy Minecraft servers.
-<h2 align="center">WIP</h2>
-This project is a work-in-progress! Currently OCI isn't able to resolve an instance with the given parameters in a reasonable amount of tries, but YMMV.
+
+
+
+# Requirements
+**Python 3.12 or higher**
+
+You will need [OCI CLI](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/cliinstall.htm#InstallingCLI) and a free [Oracle account](https://www.oracle.com/cloud/sign-in.html?redirect_uri=https%3A%2F%2Fcloud.oracle.com%2F) with a connected credit card.
+
+You will also need to run `pip install oci`
+
+# Quick Start
+```shell
+git clone https://github.com/hummusaki/OCI-Spinup.git
+cd OCI-Spinup/app
+python main.py
+```
 
 # Installation
 **This requires Python 3.12 or higher**

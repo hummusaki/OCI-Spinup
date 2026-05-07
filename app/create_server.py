@@ -7,7 +7,6 @@ to run a Docker-based Minecraft server via the Python SDK.
 """
 
 import base64
-import json
 import textwrap
 import time
 import urllib3
