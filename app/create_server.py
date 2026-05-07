@@ -289,7 +289,8 @@ def main():
         memory_in_gbs=memory,
         display_name=inst_name,
         variant=variant,
-        docker_image=docker_image
+        docker_image=docker_image,
+        max_retries=int(max_retries)
     )
 
     print("Instance OCID:", resp.data.id)
