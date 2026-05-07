@@ -8,9 +8,9 @@
 Automate the creation of Oracle Free-Tier instances for their cloud computing platform. Particularly useful if you want to create free and easy Minecraft servers.
 
 # Features
-* **Zero Touch Provisioning**: Automatically queries Oracle to find the most recent ARM image for your region
-* **Automatic Network Routing**: automatically creates Virtual Cloud Networks, Subnets, Internet Gateways, and opens the `25565` port for Minecraft use
-* **Docker Deployment**: Automatically installs Docker and spins up a Vanilla / Paper / Forge server as soon as the instance boots
+* **Zero Touch Provisioning**: Queries Oracle to find the most recent ARM image for your region
+* **Automatic Network Routing**: Automatically creates Virtual Cloud Networks, Subnets, Internet Gateways, and opens the `25565` port for Minecraft use
+* **Docker Deployment**: Installs Docker and spins up a Vanilla / Paper / Forge server as soon as the instance boots
 
 # Requirements
 **Python 3.12 or higher**
