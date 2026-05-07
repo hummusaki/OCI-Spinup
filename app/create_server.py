@@ -28,9 +28,9 @@ from oci.core.models import (
 # ------------------------------
 # Configuration Constants
 # ------------------------------
-DEFAULT_IMAGE_ID = (
-    "ocid1.image.oc1.us-sanjose-1.aaaaaaaadig2pewp2tt5nbfqpcwsbcuwtcxt2m3ptjols3iwmfcfouygdvyq"
-)
+#DEFAULT_IMAGE_ID = (
+#    "ocid1.image.oc1.us-sanjose-1.aaaaaaaadig2pewp2tt5nbfqpcwsbcuwtcxt2m3ptjols3iwmfcfouygdvyq"
+#)
 VARIANTS = {
     "1": ("VANILLA", "itzg/minecraft-server"),
     "2": ("PAPER",   "itzg/minecraft-server"),
@@ -144,10 +144,69 @@ def add_minecraft_rule(vcn_client, compartment_id, vcn_id, port=25565):
             ingress_security_rules=sl.ingress_security_rules
         )
     )
+    
+# ----------------------------------
+# 6. Create internet gateway + route
+# ----------------------------------
+def setup_internet_gatway(vcn_client, compartment_id, vcn_id):
+    #check for existing gateways
+    existing_igws = vcn_client.list_internet_gateways(compartment_id, vcn_id=vcn_id).data
+    if existing_igws:
+        igw_id = existing_igws[0].id
+        print("Found existing internet gateway...")
+    else:
+        print("Creating internet gateway...")
+        igw = vcn_client.create_internet_gateway(
+            oci.core.models.CreateInternetGatewayDetails(
+                compartment_id=compartment_id,
+                vcn_id=vcn_id,
+                is_enabled =True,
+                display_name = "OCI-Spinup-IGW"
+            )
+        ).data
+        igw_id = igw.id
+        
+    print("Updating route table")
+    rt_id = vcn_client.get_vcn(vcn_id).data.default_route_table_id
+    
+    vcn_client.update_route_table(
+        rt_id,
+        oci.code.modules.UpdateRouteTableDetails(
+            route_rules=[
+                oci.core.models.RouteRule(
+                    network_entity_id=igw_id,
+                    destination="0.0.0.0/0", #all external traffic
+                    destination_type="CIDR_BLOCK"
+                )
+            ]
+        )
+    )
 
-# ------------------------------
-# 6. Launch the server instance
-# ------------------------------
+
+# -------------------
+# 7. Fetch image OCID
+# -------------------
+def get_latest_arm_image(compute_client, compartment_id):
+    print("Finding latest Oracle Linux 9 ARM image in your region")
+    images = oci.pagination.list_call_get_all_results(
+        compute_client.list_images,
+        compartment_id=compartment_id,
+        operating_system="Oracle Linux",
+        operating_system_version="9",
+        shape="VM.Standard.A1.Flex",
+        sort_by="TIMECREATED",
+        sort_oder="DESC" #descending, so newest image is at index 0
+    ).data
+    
+    if images:
+        return images[0].id
+    else:
+        raise Exception("Couldn't find a valid Oracle Linux 9 ARM image in your region")
+
+
+# -----------------------------
+# 8. Launch the server instance
+# -----------------------------
 def launch_instance(
     compute_client,
     availability_domain,
@@ -264,9 +323,11 @@ def main():
     max_retries = input("If the server is full, retry amount [-1 for infinite, default 20]: ") or 20
 
     # 4) Network setup
-    print("Creating or retrieving VCN…")
+    print("\nCreating or retrieving VCN…")
     vcn_id = get_or_create_vcn(vcn_client, TENANCY_OCID, vcn_name)
     print(f"VCN OCID: {vcn_id}")
+
+    setup_internet_gatway(vcn_client, TENANCY_OCID, vcn_id)
 
     print("Creating or retrieving Subnet…")
     subnet_id = get_or_create_subnet(
@@ -277,6 +338,8 @@ def main():
 
     print("Adding Minecraft security rule…")
     add_minecraft_rule(vcn_client, TENANCY_OCID, vcn_id)
+    
+    img_id = get_latest_arm_image(compute_client, TENANCY_OCID)
 
     # 5) Launch
     print(f"Launching {variant} server with {ocpus} OCPUs / {memory} GB…")
