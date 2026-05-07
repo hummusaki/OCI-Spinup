@@ -27,9 +27,6 @@ from oci.core.models import (
 # ------------------------------
 # Configuration Constants
 # ------------------------------
-#DEFAULT_IMAGE_ID = (
-#    "ocid1.image.oc1.us-sanjose-1.aaaaaaaadig2pewp2tt5nbfqpcwsbcuwtcxt2m3ptjols3iwmfcfouygdvyq"
-#)
 VARIANTS = {
     "1": ("VANILLA", "itzg/minecraft-server"),
     "2": ("PAPER",   "itzg/minecraft-server"),
@@ -147,7 +144,7 @@ def add_minecraft_rule(vcn_client, compartment_id, vcn_id, port=25565):
 # ----------------------------------
 # 6. Create internet gateway + route
 # ----------------------------------
-def setup_internet_gatway(vcn_client, compartment_id, vcn_id):
+def setup_internet_gateway(vcn_client, compartment_id, vcn_id):
     #check for existing gateways
     existing_igws = vcn_client.list_internet_gateways(compartment_id, vcn_id=vcn_id).data
     if existing_igws:
@@ -170,7 +167,7 @@ def setup_internet_gatway(vcn_client, compartment_id, vcn_id):
     
     vcn_client.update_route_table(
         rt_id,
-        oci.code.modules.UpdateRouteTableDetails(
+        oci.core.models.UpdateRouteTableDetails(
             route_rules=[
                 oci.core.models.RouteRule(
                     network_entity_id=igw_id,
@@ -194,7 +191,7 @@ def get_latest_arm_image(compute_client, compartment_id):
         operating_system_version="9",
         shape="VM.Standard.A1.Flex",
         sort_by="TIMECREATED",
-        sort_oder="DESC" #descending, so newest image is at index 0
+        sort_order="DESC" #descending, so newest image is at index 0
     ).data
     
     if images:
@@ -312,10 +309,9 @@ def main():
     var = input("Choice [1-3, default 1]: ") or "1"
     variant, docker_image = VARIANTS.get(var, VARIANTS["1"])
 
-    # 3) Names / image / AD
+    # 3) Names / AD
     vcn_name  = input("VCN name (MinecraftVCN): ") or "MinecraftVCN"
     inst_name = input("Instance name (MC-Server): ") or "MC-Server"
-    img_id     = input("Image OCID (Oracle Linux 9): ") or DEFAULT_IMAGE_ID
 
     ad = identity_client.list_availability_domains(TENANCY_OCID).data[0].name
 
@@ -326,7 +322,7 @@ def main():
     vcn_id = get_or_create_vcn(vcn_client, TENANCY_OCID, vcn_name)
     print(f"VCN OCID: {vcn_id}")
 
-    setup_internet_gatway(vcn_client, TENANCY_OCID, vcn_id)
+    setup_internet_gateway(vcn_client, TENANCY_OCID, vcn_id)
 
     print("Creating or retrieving Subnet…")
     subnet_id = get_or_create_subnet(
