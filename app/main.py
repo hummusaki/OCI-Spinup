@@ -38,12 +38,12 @@ def main():
     args = parser.parse_args()
 
     if not args.skip_config:
-        # 1. Verify or install the OCI CLI first
+        #verify or install the OCI CLI 
         if not check_oci_cli():
             logging.error("Failed to install or locate OCI CLI.")
             sys.exit(1)
             
-        # 2. Check if the config file exists; if not, run the setup wizard
+        #check if the config file exists, if not, run setup wizard
         if not os.path.exists(CONFIG_PATH):
             if not setup():
                 sys.exit(1)
