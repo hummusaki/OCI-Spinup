@@ -10,6 +10,7 @@ import base64
 import textwrap
 import time
 import urllib3
+import warnings
 
 from urllib3.exceptions import ProtocolError
 
@@ -23,6 +24,9 @@ from oci.core.models import (
     LaunchInstanceDetails,
     LaunchInstanceShapeConfigDetails
 )
+
+#stop annoying urllib3 "strict" error
+warnings.filterwarnings("ignore", category=FutureWarning, module="urllib3")
 
 # ------------------------------
 # Configuration Constants
