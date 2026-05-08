@@ -39,9 +39,7 @@ python main.py
 ```
 
 # Config Guide
-
-## OCIDs, Regions and API Signing Key
-You'll need your OCIDs, Region, and API Keys to continue:
+You'll need your OCIDs, Region, and API Keys to continue
 
 ### 1: OCIDs
 **User OCID**: 
