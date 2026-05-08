@@ -269,14 +269,14 @@ runcmd:
             return response
         except ServiceError as e:
             if e.status == 500 and "Out of host capacity" in str(e.message):
-                print(f"Oracle at capacity. Trying again in 30s...")
+                print(f"Oracle at capacity. Trying again in 60s...")
             else:
                 raise
         except (RequestException, ProtocolError, urllib3.exceptions.NewConnectionError, urllib3.exceptions.MaxRetryError) as neterr:
             print(f"Network hiccup ({neterr.__class__.__name__}). "
-                  "Retrying in 30 s…")
+                  "Retrying in 60 s…")
         attempt+=1
-        time.sleep(30)
+        time.sleep(60)
     raise Exception("Exceeded maximum retries. Unable to launch instance.")
 
 # ------------------------------
