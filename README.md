@@ -14,7 +14,7 @@
 > Oracle's Always Free ARM servers are in **constant and incredibly high demand** and their instances are regularly at max capacity
 >
 > * **Free Option**: This program acts as an automated sniper, it'll likely hit an "Out of host capacity" error and loop for as long as you'd like it to in an attempt to find a slot; just leave it running as much as you can
-> * **Fast Option**: To bypass this queue, you can upgrade your Oracle account to Pay-As-You-Go, so as long as you keep your server at or below the free limit (4 OCPUs, 24GB RAM, 200GB Boot Volume) you won't be charged, but Oracle will place a temporary $100 hold on your card
+> * **⏩ Fast Option**: To bypass this queue, you can upgrade your Oracle account to Pay-As-You-Go, so as long as you keep your server at or below the free limit (4 OCPUs, 24GB RAM, 200GB Boot Volume) you won't be charged, but Oracle will place a temporary $100 hold on your card
 
 
 # Features
