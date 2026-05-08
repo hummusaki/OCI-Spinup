@@ -20,7 +20,7 @@ Automate the creation of Oracle Free-Tier instances for their cloud computing pl
 # Features
 * **Sniper Mode**: Countinuously loops to grab a free server the second hardware space becomes available 
 * **Zero Touch Provisioning**: Queries Oracle to find the most recent ARM image for your region
-* **Automatic Network Routing**: Automatically creates Virtual Cloud Networks, Subnets, Internet Gateways, and opens the `25565` port for Minecraft use
+* **Automatic Network Routing**: Automatically creates Virtual Cloud Networks, Subnets, Internet Gateways, and opens the `25565` port for Minecraft server usage
 * **Docker Deployment**: Installs Docker and spins up a Vanilla / Paper / Forge server as soon as the instance boots
 
 # Requirements
