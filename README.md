@@ -18,7 +18,7 @@ Automate the creation of Oracle Free-Tier instances for their cloud computing pl
 
 
 # Features
-* **Sniper Mode**: Countinuously loops to grab a free server the second hardware space becomes available 
+* **Sniper Mode**: Continuously loops to grab a free server the second hardware space becomes available 
 * **Zero Touch Provisioning**: Queries Oracle to find the most recent ARM image for your region
 * **Automatic Network Routing**: Automatically creates Virtual Cloud Networks, Subnets, Internet Gateways, and opens the `25565` port for Minecraft server usage
 * **Docker Deployment**: Installs Docker and spins up a Vanilla / Paper / Forge server as soon as the instance boots
@@ -31,6 +31,7 @@ A free [Oracle account](https://www.oracle.com/cloud/sign-in.html?redirect_uri=h
 # Quick Start
 ```shell
 git clone https://github.com/hummusaki/OCI-Spinup.git
+cd OCI-Spinup/app
 python3 -m venv venv
 source venv/bin/activate
 pip install oci
@@ -49,7 +50,7 @@ Once you're on your dashboard, click on your user icon in the top right corner, 
 **Tenancy OCID**: Click on your user icon again -> "Tenancy: [Your Username]", and copy that OCID
 
 ### 2: Follow the prompt
-Paste your OCIDs when prompted, then the script will ask for your region. There are 80+ options, so find the one with the area code and city closest to you.
+Paste your OCIDs when prompted, then the script will output 80+ regions; find the one with the city closest to you (e.g. us-sanjose-1) and type the corresponding number.
 
 ### 3: API Keys
 When it asks you if you want to generate an RSA key pair, select `y`
