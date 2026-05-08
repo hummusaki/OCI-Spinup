@@ -5,7 +5,7 @@
 </p>
 <h1 align="center">OCI-Spinup</h1>
 <h3 align="center">Oracle Instance Automation</h3>
-Automate the creation of Oracle Free-Tier instances for their cloud computing platform. Particularly useful if you want to quickly create a free Minecraft server.
+<p align="center">Automate the creation of Oracle Free-Tier instances for their cloud computing platform. Particularly useful if you want to quickly create a free Minecraft server.</p>
 
 <br>
 
